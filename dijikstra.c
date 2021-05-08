@@ -1,11 +1,13 @@
 #include "graph.h"
 #include "Heap.h"
+#include "stack.h"
+
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-// #include "stack.h"
 
-int *dijikstra(struct Graph *graph, int src, int dest, int *len)
+//returns a stack data type with top element being next node to travel from src to reach dest most effectively
+Stack dijikstra(struct Graph *graph, int src, int dest)
 {
     int V = graph->V;
 
@@ -53,16 +55,15 @@ int *dijikstra(struct Graph *graph, int src, int dest, int *len)
         }
     }
 
-    int *path = (int *)malloc(sizeof(int) * V);
-
+    Stack s = NULL;
     int j = dest;
+
     while (parent[j] != j)
     {
-        //push(j)
+        push(&s, j);
         j = parent[j];
     }
-
-    return path;
+    return s;
 }
 
 // int main()
@@ -76,8 +77,14 @@ int *dijikstra(struct Graph *graph, int src, int dest, int *len)
 //     addEdge(graph, 2, 3, 3, "a", 0);
 
 //     int src = 0;
-//     int len = 0;
-//     int *next_vertex = dijikstra(graph, src, 7, &len);
+
+//     Stack s2 = dijikstra(graph, src, 3);
+
+//     // printf("here");
+//     while (!isEmptyStack(&s2))
+//     {
+//         printf("%d ", pop(&s2));
+//     }
 
 //     // printf("%d", len);
 //     // for (int i = 0; i < len; i++)
