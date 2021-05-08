@@ -1,8 +1,8 @@
-struct Edge
+struct Edge //structure for storing information about each street
 {
     int dest;          //destination node
     int Length;        //length  of the edge
-    int congestion;    //congestion on the edge at a given time
+    int congestion;    //congestion on the edge at a given time i.r the number of cars
     char name[31];     //name of the street
     struct Edge *next; //pointer to the next edge of source
 };
