@@ -30,7 +30,7 @@ long long int calc_time(long long int cars,long long int length){
 
 void routing(){
     long long int time=0;
-    int have_i_reached_node=0 //a flaf varriable to know if we've crossed a street or not
+    int have_i_reached_node=0; //a flaf varriable to know if we've crossed a street or not
     while(1){
         time++;
         for(int i=0;i<v;i++){               //v stands for the number of cars

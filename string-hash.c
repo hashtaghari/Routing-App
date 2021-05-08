@@ -70,7 +70,7 @@ StrHash Init_StrHash(unsigned long int cap)
     return table;
 }
 
-void __insert_StrHash(StrHash_NODE *arr, char *str, unsigned long int index, unsigned long int cap)
+void __insert_StrHash(StrHash_NODE *arr, char *str, unsigned long int index, unsigned long int cap, int v1, int v2)
 {
     unsigned long int i = 1;
     unsigned long int base = index;
@@ -79,7 +79,8 @@ void __insert_StrHash(StrHash_NODE *arr, char *str, unsigned long int index, uns
         if (!arr[index].visited)
         {
             strcpy(arr[index].str, str);
-
+            arr[index].v1 = v1;
+            arr[index].v2 = v2;
             arr[index].visited = true;
             break;
         }
@@ -108,7 +109,7 @@ void Rehash_StrHash(StrHash table, unsigned long int new_size)
         else
         {
             unsigned long int place = Str_Hash(table->bkt_arr[i].str, new_size);
-            __insert_StrHash(new_arr, table->bkt_arr[i].str, place, new_size);
+            __insert_StrHash(new_arr, table->bkt_arr[i].str, place, new_size, table->bkt_arr[i].v1, table->bkt_arr[i].v2);
         }
     }
 
@@ -116,7 +117,7 @@ void Rehash_StrHash(StrHash table, unsigned long int new_size)
     table->bkt_arr = new_arr;
 }
 
-void Insert_StrHash(StrHash table, char *str)
+void Insert_StrHash(StrHash table, char *str, int v1, int v2)
 {
     if (table->curr >= (double)(table->cap - 1) / (double)2)
     {
@@ -126,7 +127,7 @@ void Insert_StrHash(StrHash table, char *str)
 
     unsigned long int index = Str_Hash(str, table->cap);
 
-    __insert_StrHash(table->bkt_arr, str, index, table->cap);
+    __insert_StrHash(table->bkt_arr, str, index, table->cap, v1, v2);
     table->curr++;
 }
 
