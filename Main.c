@@ -1,9 +1,16 @@
 #include "Main.h"
 #include "UI.c"
+#include"graph.h"
+#include"routing.c"
+#include"stack.h"
+#include"Heap.h"
+#include"string-hash.h"
 
 int main(){
     restore_values();//restores all the variable information from txt files.
     int menu_entry;
+    struct Graph *g;
+    StrHash hash = Init_StrHash((int)10e5);
     loading_animation();
     intro_animation();
     do{
@@ -11,13 +18,22 @@ int main(){
         scanf("%d",menu_entry);
         switch(menu_entry){
             case 1:
-                add_map();
+                g = add_map();
+                for(int i=0;i<g->V;i++)
+                {
+                    struct Edge*e = g->array[i].head;
+                    while (e!=NULL)
+                    {
+                        Insert_StrHash(hash,e->name,i,e->dest,e->Length,e->Length);
+                        e=e->next;
+                    }
+                }
                 break;
             case 2:
-                modify_map_usr();
+                modify_map_usr(g);
                 break;
             case 3:
-                route();
+                routing(g,hash);
                 break;
             case 4:
                 instruction();
@@ -39,9 +55,10 @@ int main(){
     return 0;
 }
 
-void add_map(){
+struct Graph* add_map(){
     system("cls");
     printf("How do you want to enter input?");
 }
+
 
 

@@ -16,10 +16,10 @@ struct car_info{
 };
 
 struct my_car{
-    int stat_node; //starting intersection/node of our travel
+    int start_node; //starting intersection/node of our travel
     int end_node; //Destination node
     int curr_node;//the current node we're at/the previous node we were at if still on an edge
-    int curr_street;//the current edge we are at
+    char curr_street[31];//the current edge we are at
     long long int time_to_change; //an idicator to check if the car has crossed the street
 };
 
