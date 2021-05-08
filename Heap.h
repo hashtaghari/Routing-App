@@ -2,7 +2,7 @@
 #define _HEAP_HEADER_
 
 #include<stdbool.h>
-
+#include<stdlib.h>
 struct MinHeapNode
 {
     int v;
