@@ -10,7 +10,9 @@ struct str_hash_node
 {
     char str[31];
     bool visited;
+    int length;
     int v1, v2;
+    int congestion;
 };
 
 typedef struct str_hash_node StrHash_NODE;
@@ -26,9 +28,9 @@ int len(char *str);
 unsigned long int Str_Hash(char *str, unsigned long int cap);
 
 StrHash Init_StrHash(unsigned long int cap);
-void __insert_StrHash(StrHash_NODE *arr, char *data, unsigned long int index, unsigned long int cap, int v1, int v2);
+void __insert_StrHash(StrHash_NODE *arr, char *data, unsigned long int index, unsigned long int cap, int v1, int v2, int congestion,int length);
 void Rehash_StrHash(StrHash table, unsigned long int new_size);
 
-void Insert_StrHash(StrHash table, char *data, int v1, int v2);
+void Insert_StrHash(StrHash table, char *data, int v1, int v2, int congestion,int length);
 unsigned long int Find_StrHash(StrHash table, char *data);
 #endif

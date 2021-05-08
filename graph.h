@@ -30,3 +30,7 @@ void showlist(struct Graph *g);
 /*returs 1 if succesfully able to update edge between src and dest
 returns 0 if there is no edge between src and dest*/
 int updateEdge(struct Graph *g, int src, int dest, int newCongestion);
+
+int increaseCongestion(struct Graph *g, int src, int dest);
+
+int decreaseCongestion(struct Graph *g, int src, int dest);

@@ -78,6 +78,41 @@ int updateEdge(struct Graph *g, int src, int dest, int newCongestion)
     e->congestion = newCongestion;
 }
 
+int increaseCongestion(struct Graph *g, int src, int dest)
+{
+    struct Edge *e = g->array[src].head;
+    while (e != NULL)
+    {
+        if (e->dest == dest)
+        {
+            break;
+        }
+        e = e->next;
+    }
+    if (e == NULL)
+    {
+        return -1;
+    }
+    e->congestion++;
+}
+int decreaseCongestion(struct Graph *g, int src, int dest)
+{
+    struct Edge *e = g->array[src].head;
+    while (e != NULL)
+    {
+        if (e->dest == dest)
+        {
+            break;
+        }
+        e = e->next;
+    }
+    if (e == NULL)
+    {
+        return -1;
+    }
+    e->congestion--;
+}
+
 // int main()
 // {
 
