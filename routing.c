@@ -18,7 +18,9 @@ int update_myloc(int time){
 
         //update congestion values for both nodes 
         me.time_to_change+= calc_time(/*length,congestion*/);/* obtain using car[i].names_of_streets[location_ptr])*/
+        return 1;
     }
+    return 0;
 }
 
 long long int calc_time(long long int cars,long long int length){
@@ -33,7 +35,7 @@ void routing(){
     int have_i_reached_node=0 //a flaf varriable to know if we've crossed a street or not
     while(1){
         time++;
-        for(int i=0;i<v;i++){               //v stands for the number of cars
+        for(int i=0;i<number_of_vehicles;i++){               //number_of_vehicles stands for the number of cars
             update_cars(i,time);            //updates the location of each individual car and the edge weights accordingly
         }
         have_i_reached_node=update_myloc(time); //update 'me' variable, i.e. details of my car
