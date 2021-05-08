@@ -19,18 +19,18 @@ struct my_car{
     int stat_node; //starting intersection/node of our travel
     int end_node; //Destination node
     int curr_node;//the current node we're at/the previous node we were at if still on an edge
-    long long int time_to_change;
+    long long int time_to_change; //an idicator to check if the car has crossed the street
 };
 
 struct street_info{
-    int start_node;
-    int end_node;
-    long long int length;
-    long long int congestion;
+    int start_node; //the starting node(intersection) of the street
+    int end_node; //the ending node(intersection) of the street
+    long long int length; //length of the street as given in the input, this stays constant throughout the program after initialisation
+    long long int congestion;//the number of cars in the street at any given time 't'. This changes dynamically as the traffic moves across the map
 };
 
 
-cars car[1000];
-streets street[100000];
+cars car[1000]; // an array containg all the informaion about each individual car on the street
+streets street[100000]; //an array containing the information of all the streets as entered by the user
 struct my_car me;
 #endif

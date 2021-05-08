@@ -106,3 +106,4 @@ void intro_animation(){
     printf("\n                              Your Choice:");
     main_menu();
 }
+
