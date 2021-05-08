@@ -3,17 +3,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-void givepath(int parent[], int j, int *len, int *path)
-{
-    // *(len)++;
-    if (parent[j] == -1)
-    {
-        return;
-    }
-    givepath(parent, parent[j], len, path);
-    printf("%d ", j);
-}
+// #include "stack.h"
 
 int *dijikstra(struct Graph *graph, int src, int dest, int *len)
 {
@@ -25,17 +15,13 @@ int *dijikstra(struct Graph *graph, int src, int dest, int *len)
 
     struct MinHeap *minHeap = createMinHeap(V);
 
-    parent[src] = -1;
-
     for (int v = 0; v < V; ++v)
     {
         dist[v] = INT_MAX;
         minHeap->array[v] = newMinHeapNode(v, dist[v]);
         minHeap->pos[v] = v;
+        parent[v] = v;
     }
-
-    // minHeap->array[src] = newMinHeapNode(src, dist[src]);
-    // minHeap->pos[src] = src;
 
     dist[src] = 0;
     decreaseKey(minHeap, src, dist[src]);
@@ -69,30 +55,27 @@ int *dijikstra(struct Graph *graph, int src, int dest, int *len)
 
     int *path = (int *)malloc(sizeof(int) * V);
 
-    givepath(parent, dest, len, path);
+    int j = dest;
+    while (parent[j] != j)
+    {
+        //push(j)
+        j = parent[j];
+    }
+
     return path;
 }
 
 // int main()
 // {
-//     int V = 9;
+//     int V = 4;
 //     struct Graph *graph = createGraph(V);
-//     addEdge(graph, 0, 1, 4, "a", 1);
-//     addEdge(graph, 0, 7, 8, "a", 1);
-//     addEdge(graph, 1, 7, 11, "a", 1);
-//     addEdge(graph, 1, 2, 8, "a", 1);
-//     addEdge(graph, 7, 8, 7, "a", 1);
-//     addEdge(graph, 7, 6, 1, "a", 1);
-//     addEdge(graph, 2, 8, 2, "a", 1);
-//     addEdge(graph, 8, 6, 6, "a", 1);
-//     addEdge(graph, 2, 3, 7, "a", 1);
-//     addEdge(graph, 2, 5, 4, "a", 1);
-//     addEdge(graph, 6, 5, 2, "a", 1);
-//     addEdge(graph, 3, 5, 14, "a", 1);
-//     addEdge(graph, 3, 4, 9, "a", 1);
-//     addEdge(graph, 5, 4, 10, "a", 1);
+//     addEdge(graph, 0, 1, 5, "a", 0);
+//     addEdge(graph, 0, 2, 4, "a", 0);
+//     addEdge(graph, 1, 2, 2, "a", 0);
+//     addEdge(graph, 1, 3, 6, "a", 0);
+//     addEdge(graph, 2, 3, 3, "a", 0);
 
-//     int src = 2;
+//     int src = 0;
 //     int len = 0;
 //     int *next_vertex = dijikstra(graph, src, 7, &len);
 
