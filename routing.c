@@ -17,6 +17,7 @@ void update_cars(struct Graph* g,int i,int time,StrHash hash){
 }
 
 int update_myloc(struct Graph*g ,int time,int dest,StrHash hash){
+    char is_free;
     if(time=me.time_to_change){ //if my car has reached the end of a street
         //me.curr_street=
         //me.curr_node= //update, obtain the current node from street end
@@ -44,9 +45,14 @@ int update_myloc(struct Graph*g ,int time,int dest,StrHash hash){
         int next_index = Find_StrHash(hash,me.curr_street);
         StrHash_NODE next = hash->bkt_arr[next_index];
         me.time_to_change+= calc_time(next.congestion,next.length);/* obtain using car[i].names_of_streets[location_ptr])*/
-
         increaseCongestion(g,next.v1,next.v2);
-
+        printf("\n The next route  you must take is : %s",me.curr_street);
+        printf("\n Is the path ahead avalible to travel? (Y/N)");
+            scanf("%c",is_free);
+            if(is_free=='N' || 'n'){
+                //modify the suggested path edge weight->infinity
+                //dijikstra(me.curr_node,destination) // if no path available say->can't find any path 
+            }
         printf("Our path is %s\n",next.str);
         return 1;
     }
@@ -73,16 +79,6 @@ void routing(struct Graph* g,StrHash hash){
         if(me.curr_node==destination){
             printf("You have reached your destination");
             break;
-        }
-        if(have_i_reached_node){
-            //**apply dijikstra**  @naval  dijikstra(me.curr_node,destination)
-            //print next path 
-            printf("\n Is the path ahead avalible to travel? (Y/N)");
-            scanf("%c",is_free);
-            if(is_free=='N' || 'n'){
-                //modify the suggested path edge weight->infinity
-                //dijikstra(me.curr_node,destination) // if no path available say->can't find any path 
-            }
         }
     }
 }
