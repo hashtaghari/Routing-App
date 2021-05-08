@@ -39,4 +39,9 @@ int main(){
     return 0;
 }
 
+void add_map(){
+    system("cls");
+    printf("How do you want to enter input?");
+}
+
 
