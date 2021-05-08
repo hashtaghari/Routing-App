@@ -68,7 +68,7 @@ Stack dijikstra(struct Graph *graph, int src, int dest)
 
 // int main()
 // {
-//     int V = 4;
+//     int V = 5;
 //     struct Graph *graph = createGraph(V);
 //     addEdge(graph, 0, 1, 5, "a", 0);
 //     addEdge(graph, 0, 2, 4, "a", 0);
@@ -80,17 +80,8 @@ Stack dijikstra(struct Graph *graph, int src, int dest)
 
 //     Stack s2 = dijikstra(graph, src, 3);
 
-//     // printf("here");
 //     while (!isEmptyStack(&s2))
 //     {
 //         printf("%d ", pop(&s2));
 //     }
-
-//     // printf("%d", len);
-//     // for (int i = 0; i < len; i++)
-//     // {
-//     //     printf("here");
-//     //     printf("%d ", next_vertex[i]);
-//     // }
-//     // showlist(graph);
 // }
