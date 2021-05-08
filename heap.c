@@ -1,6 +1,7 @@
 #include "Heap.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 //definations of functions related to heap:
 
 struct MinHeapNode *newMinHeapNode(int v, int dist)

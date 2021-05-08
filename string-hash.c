@@ -49,7 +49,7 @@ unsigned long int Str_Hash(char *str, unsigned long int cap)
         pow = (pow * p) % cap;
     }
 
-    return index;
+    return abs(index);
 }
 
 StrHash Init_StrHash(unsigned long int cap)
