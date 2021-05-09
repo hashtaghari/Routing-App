@@ -38,5 +38,6 @@ int increaseCongestion(struct Graph *g, int src, int dest);
 
 int decreaseCongestion(struct Graph *g, int src, int dest);
 
+void saveGraph(struct Graph*g,char*name);
 
 #endif

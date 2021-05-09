@@ -1,0 +1,10 @@
+10 9
+0 4 name1 10
+1 9 name2 10
+1 3 name3 10
+1 2 name4 10
+4 9 name5 10
+4 1 name6 10
+5 6 name7 10
+5 4 name8 10
+6 8 name9 10

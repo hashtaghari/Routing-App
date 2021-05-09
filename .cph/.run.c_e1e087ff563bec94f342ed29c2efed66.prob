@@ -1,0 +1,1 @@
+{"name":"Local: run","url":"d:\\IIIT\\Term-2\\DSA\\mini\\Routing-Grp-26\\run.c","tests":[{"id":1620557960321,"input":"5 6\n1 2\n2 4\n4 0\n2 3\n1 6\n3 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\IIIT\\Term-2\\DSA\\mini\\Routing-Grp-26\\run.c","group":"local","local":true}

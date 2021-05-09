@@ -113,6 +113,32 @@ int decreaseCongestion(struct Graph *g, int src, int dest)
     e->congestion--;
 }
 
+void saveGraph(struct Graph *g, char *name)
+{
+    char path[100] = ".\\data\\";
+    char c_name[100];
+    char ext[6]=".txt";
+
+    strcpy(c_name,name);
+    strcat(c_name,ext);
+
+    strcat(path, c_name);
+    
+    FILE *f = fopen(path, "w");
+    fprintf(f, "%d %d\n", g->V, g->E);
+
+    for (int i = 0; i < g->V; i++)
+    {
+        struct Edge *curr = g->array[i].head;
+        while (curr != NULL)
+        {
+            fprintf(f,"%d %d %s %d\n", i, curr->dest, curr->name, curr->Length);
+            curr = curr->next;
+        }
+    }
+    fclose(f);
+}
+
 // int main()
 // {
 

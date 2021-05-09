@@ -1,41 +1,30 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 
+f = open(".\\data\\g1.txt", "r")
 
-class Graph:
-    def __init__(self):
-        self.edges = []
-        self.names = []
+line1 = f.readline()
+G = nx.Graph()
+names = []
+color_list = []
+for line in f:
+    data = line.split()
+    # print(data)
+    G.add_edge(data[0], data[1], edge_labels=data[2], lenght=(2*len(data[2])))
+    color_list.append("wheat")
+    names.append(((data[0], data[1]), data[2]))
 
-    def addEdge(self, a, b, name):
-        self.edges.append([a, b])
-        self.names.append(((a, b), name))
+pos = nx.spring_layout(G)
+fig = plt.figure()
+# edge_names = nx.get_edge_attributes(G,'edge_labels').values()
+nx.draw(G, pos, with_labels=True, node_size=450,
+        node_color="black", width=7,font_color='white')
 
-    def visualize(self):
-        G = nx.DiGraph()
-        G.add_edges_from(self.edges)
-        pos = nx.spring_layout(G)
+props = dict(boxstyle='round', facecolor='#fffdd0', alpha=1)
 
-        plt.figure()
+nx.draw_networkx_edge_labels(G, pos, edge_labels=dict(
+    names), font_color='#00008B', bbox=props)
 
-        nx.draw(G, pos, edge_color='black', width=1, linewidths=1, node_size=600,node_color='green', alpha=0.9, labels={node: node for node in G.nodes()})
-
-        nx.draw_networkx_edge_labels(G, pos, edge_labels=dict(self.names), font_color='red' )
-        plt.axis('off')
-        plt.show()
-
-    def print_name(self):
-        print(self.names)
-
-
-G = Graph()
-
-n, m = [int(x) for x in input().split()]
-
-# print(n,m)
-
-for i in range(0, m):
-    x, y = [int(p) for p in input().split()]
-    G.addEdge(x, y, "x")
-# G.print_name()
-G.visualize()
+nx.draw_networkx_edges(G,pos,edge_color=color_list,style="dashed")
+fig.set_facecolor("#ADD8E6")
+plt.show()
