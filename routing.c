@@ -22,7 +22,7 @@ void update_cars(struct Graph* g,int i,int time,StrHash hash){
     }
 }
 
-int update_myloc(struct Graph*g ,int time,int dest,StrHash hash,int dest){
+int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
     char is_free;
     if(time=me.time_to_change){ //if my car has reached the end of a street
         //me.curr_street=
@@ -89,14 +89,27 @@ long long int calc_time(int cars,int length){
 }
 
 void routing(struct Graph* g,StrHash hash,int dest){
+    for (int i = 0; i < Ncars; i++)
+    {
+        car[i].location_ptr = 1;
+
+        int index = Find_StrHash(hash,car[i].names_of_streets[car[i].location_ptr]) ;
+        hash->bkt_arr[index].congestion++;
+        increaseCongestion(g,hash->bkt_arr[index].v1,hash->bkt_arr[index].v2);
+
+        car[i].time_to_change = calc_time((long long)hash->bkt_arr[index].congestion,(long long)hash->bkt_arr[index].length);
+        
+    }
     long long int time=0;
     int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
+    
     while(1){
         time++;
+        have_i_reached_node =0;
         for(int i=0;i<Ncars;i++){               //updates the location for every car and the changes in edge weights are accounted for in this loop
-            update_cars(i,time,hash);            //updates the location of each individual car and the edge weights accordingly
+            update_cars(g,i,time,hash);            //updates the location of each individual car and the edge weights accordingly
         }
-        have_i_reached_node=update_myloc(g,time,dest,hash,dest); //update 'me' variable, i.e. details of my car
+        have_i_reached_node=update_myloc(g,time,hash,dest); //update 'me' variable, i.e. details of my car
         if(me.curr_node==dest){
             printf("You have reached your destination");
             break;

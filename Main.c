@@ -46,7 +46,7 @@ int main(){
                 scanf("%d",me.start_node);
                 me.curr_node=me.start_node;
                 printf("\n Enter Your Destination Node:");
-                scanf("%d",&dest)
+                scanf("%d",&dest);
                 routing(g,hash,dest);
                 break;
             case 4:
@@ -79,7 +79,7 @@ struct Graph* add_map() {
     
     //Keeping the code interactive to a point such that the user has the option to decide how they wish to input the necessary deails.
     printf("Choose as to how you wish to input:\n\t1.\tManually\n\t2.\tFile\n");
-    
+    struct Graph *graph ;
     //Inputting the value of choice which will be used for splitting the code depending upon the way the information wiil be inputted.
     int choice;
     scanf("%d", &choice);
@@ -116,8 +116,7 @@ struct Graph* add_map() {
         scanf("%d %d %d %d %d", &D, &I, &S, &Ncars, &F);
         printf("5 values inputted\n");
 
-        struct Graph *graph = createGraph(I);
-        cars car[V];
+       graph = createGraph(I);
     
         //For the next S lines, we need 1 string and 3 integer inputs.
         for (int y = 0; y < S; ++y) {
@@ -136,7 +135,7 @@ struct Graph* add_map() {
                 scanf("%s", streetName); //Takes in each individual name of the street a said car will travel through.
                 strcpy(car[y].names_of_streets[z], streetName);
             }
-            car[y].location_ptr = car[y].names_of_streets[0];
+            // car[y].location_ptr = car[y].names_of_streets[0];
             car[y].time_to_change = 0;
             printf("Added details for car %d\n", y);
         }
@@ -208,7 +207,7 @@ struct Graph* add_map() {
             //we derive as to what will be inputted into which variable.
             if (NOL == 1) { //For line 1, we need 5 integer inputs.
                 fscanf(fPointer, "%d %d %d %d %d", &D, &I, &S, &Ncars, &F);
-                struct Graph *graph = createGraph(I);
+                graph = createGraph(I);
             } else if ((NOL > 1) && (NOL <= (1 + S))) { //From line 2 to line S+1, we have 3 integer and 1 string input.
                 fscanf(fPointer, "%d %d %s %d", &B, &E, streetName, &L);
                 addEdge(graph, B, E, L, streetName, 0);
@@ -219,7 +218,7 @@ struct Graph* add_map() {
                     scanf("%s", streetName); //Takes in each individual name of the street a said car will travel through.
                     strcpy(car[y].names_of_streets[z], streetName);
                 }
-                car[y].location_ptr = car[y].names_of_streets[0];
+                // car[y].location_ptr = car[y].names_of_streets[0];
                 car[y].time_to_change = 0;
                 y++;
             }
