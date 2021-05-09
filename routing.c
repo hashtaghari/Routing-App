@@ -3,7 +3,6 @@
 #include"graph.h"
 #include"string-hash.h"
 
-
 void update_cars(struct Graph* g,int i,int time,StrHash hash){
     if(time=car[i].time_to_change && car[i].location_ptr<car[i].num_streets){ //if the car has reached the end of the edge and it still has more edge(s) to cover
         //**Naval->  update_edge(car[i].names_of_streets[location_ptr]) decrease by 1
@@ -23,7 +22,7 @@ void update_cars(struct Graph* g,int i,int time,StrHash hash){
     }
 }
 
-int update_myloc(struct Graph*g ,int time,int dest,StrHash hash){
+int update_myloc(struct Graph*g ,int time,int dest,StrHash hash,int dest){
     char is_free;
     if(time=me.time_to_change){ //if my car has reached the end of a street
         //me.curr_street=
@@ -89,17 +88,16 @@ long long int calc_time(long long int cars,long long int length){
     return time;
 }
 
-void routing(struct Graph* g,StrHash hash){
+void routing(struct Graph* g,StrHash hash,int dest){
     long long int time=0;
-    int dest=10;        // we still have to take dest as input (main --> routing -->update_myloc)
-    int have_i_reached_node=0; //a flaf varriable to know if we've crossed a street or not
+    int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
     while(1){
         time++;
-        for(int i=0;i<number_of_vehicles;i++){               //number_of_vehicles stands for the number of cars
+        for(int i=0;i<Ncars;i++){               //updates the location for every car and the changes in edge weights are accounted for in this loop
             update_cars(i,time,hash);            //updates the location of each individual car and the edge weights accordingly
         }
-        have_i_reached_node=update_myloc(g,time,dest,hash); //update 'me' variable, i.e. details of my car
-        if(me.curr_node==destination){
+        have_i_reached_node=update_myloc(g,time,dest,hash,dest); //update 'me' variable, i.e. details of my car
+        if(me.curr_node==dest){
             printf("You have reached your destination");
             break;
         }

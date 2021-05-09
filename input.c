@@ -4,7 +4,7 @@
 #include "graph.h"
 #include "structs.h"
 
-int main() {
+int add_map() {
     
     //Keeping the code interactive to a point such that the user has the option to decide how they wish to input the necessary deails.
     printf("Choose as to how you wish to input:\n\t1.\tManually\n\t2.\tFile\n");
@@ -12,7 +12,6 @@ int main() {
     //Inputting the value of choice which will be used for splitting the code depending upon the way the information wiil be inputted.
     int choice;
     scanf("%d", &choice);
-
     //The two main choice given are by file, shown by '2' or done manually, pointed by '1'.
     if (choice == 1) { // In case the user wishes to input the information themselves.
 
