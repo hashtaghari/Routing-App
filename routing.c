@@ -66,8 +66,8 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
         hash->bkt_arr[next_index].congestion++;
         increaseCongestion(g,next.v1,next.v2);
 
-        printf("\nYou are currently at intersection : %d",me.curr_node);
-        printf("\n The next route  you must take is : %s",me.curr_street);
+        printf("\n\nYou are currently at intersection : %d",me.curr_node);
+        printf("\nThe next route  you must take is : %s",me.curr_street);
         // printf("\n Is the path ahead avalible to travel? (Y/N)");
         fprintf(fp,"%s\n",me.curr_street);
         fclose(fp);
@@ -101,7 +101,7 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
 void routing(struct Graph* g,StrHash hash,int dest){
 
     FILE* fp = fopen(".\\data\\curr_edge.txt","w");
-
+    system("cls");
     // printf("Entered Rounting");
     for (int i = 0; i < Ncars; i++)
     {
@@ -132,8 +132,8 @@ void routing(struct Graph* g,StrHash hash,int dest){
     me.time_to_change= calc_time(next.congestion,next.length);/* obtain using car[i].names_of_streets[location_ptr])*/
     hash->bkt_arr[next_index].congestion++;
     increaseCongestion(g,next.v1,next.v2);
-    printf("\nYou are currently at intersection : %d",me.curr_node);
-    printf("\n The next route you must take is : %s",me.curr_street);
+    printf("\n\nYou are currently at intersection : %d",me.curr_node);
+    printf("\nThe next route you must take is : %s",me.curr_street);
     // printf("\n initalised conditions");
     fprintf(fp,"%s\n",me.curr_street);
     fclose(fp);
@@ -157,6 +157,7 @@ void routing(struct Graph* g,StrHash hash,int dest){
 
         if(have_i_reached_node==1){
             L1:
+            printf("\n\nThe next route you must take is : %s",me.curr_street);
             printf("\nYou have reached your destination");
             getch();
             break;
