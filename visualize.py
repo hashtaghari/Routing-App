@@ -1,21 +1,30 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 
-f = open(".\\data\\g1.txt", "r")
+f = open(".\\data\\g2.txt", "r")
+# f2 = open(".\\data\\curr_edge.tmp", "r")
 
+# name = list(f2.readline)
+name = "name1"
+
+highleted_color = "orange"
 back_ground = "#59999c"
-edge_color = "#fffb00"
+edge_color = "white"
 vertex_color = "#f67d7d"
 
 line1 = f.readline()
-G = nx.Graph()
+G = nx.DiGraph()
 names = []
 color_list = []
 for line in f:
     data = line.split()
     # print(data)
     G.add_edge(data[0], data[1], edge_labels=data[2], lenght=(2*len(data[2])))
-    color_list.append(edge_color)
+    if(data[2] == name):
+        color_list.append(highleted_color)
+    else:
+        color_list.append(edge_color)
+    
     names.append(((data[0], data[1]), data[2]))
 
 pos = nx.circular_layout(G)
