@@ -28,7 +28,7 @@ int update_myloc(struct Graph*g ,int time,int dest,StrHash hash,int dest){
         //me.curr_street=
         //me.curr_node= //update, obtain the current node from street end
         int currindex = Find_StrHash(hash,me.curr_street); 
-        StrHash_NODE  a = hash->bkt_arr[currindex] ;
+        StrHash_NODE  a = hash->bkt_arr[currindex];
 
         hash->bkt_arr[currindex].congestion--;
         decreaseCongestion(g,a.v1,a.v2);
@@ -81,10 +81,10 @@ int update_myloc(struct Graph*g ,int time,int dest,StrHash hash,int dest){
     return 0;
 }
 
-long long int calc_time(long long int cars,long long int length){
+long long int calc_time(int cars,int length){
     long long int factora=1000;
     long long int factorb= 1;
-    long long int time = cars*cars/factora + length*factorb;
+    long long int time = (long long int)cars*(long long int)cars/factora + (long long int)length*factorb;
     return time;
 }
 
