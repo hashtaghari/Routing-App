@@ -56,13 +56,11 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
             e = e->next;
         }
         strcpy(me.curr_street,e->name);
-
-     
-
+   
         //update congestion values for both nodes 
         int next_index = Find_StrHash(hash,me.curr_street);
         StrHash_NODE next = hash->bkt_arr[next_index];
-        
+       
         me.time_to_change+= calc_time(next.congestion,next.length);/* obtain using car[i].names_of_streets[location_ptr])*/
         
         hash->bkt_arr[next_index].congestion++;
@@ -86,7 +84,10 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
             // }
         // printf("Our path is %s\n",next.str);
         printf("\nme.curr : %d\n",me.curr_node);
+        if(next.v2==dest)
         return 1;
+        else
+        return 0;
     }
     return 0;
 }
@@ -106,34 +107,24 @@ void routing(struct Graph* g,StrHash hash,int dest){
         
     }
 
-    me.time_to_change = 1;
-
-         Stack s3 = dijikstra(g,me.curr_node,dest) ;
-
-        struct Edge* e1  = g->array[me.curr_node].head;
-        while(e1!=NULL)
+    Stack s3 = dijikstra(g,me.curr_node,dest) ;
+    struct Edge* e1  = g->array[me.curr_node].head;
+    while(e1!=NULL)
+    {
+        if(e1->dest == peek(&s3))
         {
-            if(e1->dest == peek(&s3))
-            {
-                break;
-            }
-            e1 = e1->next;
+            break;
         }
-        strcpy(me.curr_street,e1->name);
-
-     
-
-        //update congestion values for both nodes 
-        int next_index = Find_StrHash(hash,me.curr_street);
-        StrHash_NODE next = hash->bkt_arr[next_index];
-        
-        me.time_to_change+= calc_time(next.congestion,next.length);/* obtain using car[i].names_of_streets[location_ptr])*/
-        
-        hash->bkt_arr[next_index].congestion++;
-        increaseCongestion(g,next.v1,next.v2);
-
-        printf("\n The next route  you must take is : %s",me.curr_street);
-
+        e1 = e1->next;
+    }
+    strcpy(me.curr_street,e1->name);
+    //update congestion values for both nodes 
+    int next_index = Find_StrHash(hash,me.curr_street);
+    StrHash_NODE next = hash->bkt_arr[next_index]; //next has information about the edge
+    me.time_to_change= calc_time(next.congestion,next.length);/* obtain using car[i].names_of_streets[location_ptr])*/
+    hash->bkt_arr[next_index].congestion++;
+    increaseCongestion(g,next.v1,next.v2);
+    printf("\n The next route  you must take is : %s",me.curr_street);
     printf("\n initalised conditions");
     long long int time=0;
     int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
@@ -147,8 +138,9 @@ void routing(struct Graph* g,StrHash hash,int dest){
         }
         // printf("\n%d %d %lld\n",me.curr_node,me.end_node,me.time_to_change);
         have_i_reached_node=update_myloc(g,time,hash,dest); //update 'me' variable, i.e. details of my car
-        if(me.curr_node==dest){
+        if(have_i_reached_node==1){
             printf("You have reached your destination");
+            getch();
             break;
         }
     }
