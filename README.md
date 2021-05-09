@@ -5,8 +5,9 @@ To compile, use gcc Main.c .\graph.c .\stack.c .\string-hash.c .\heap.c
 Input format:
 
 The first contains five numbers:
-      an integer D ( 1 ≤ D ≤ 10 4 ) - the duration of the simulation, i n seconds,
-      an integer I (2 ≤ I ≤ 10 5) - the number of i ntersections (with IDs from 0 to I -1) ,
+
+      an integer D ( 1 ≤ D ≤ 10 4 ) - the duration of the simulation, in seconds,
+      an integer I (2 ≤ I ≤ 10 5) - the number of intersections (with IDs from 0 to I -1) ,
       an integer S (2 ≤ S ≤ 1 0 5) - the number of streets,
       an integer V (1 ≤ V ≤ 1 0 3) - the number of cars,
       an integer F (1 ≤ F ≤ 103 ) - the bonus points for each car that reaches its destination before time D.
