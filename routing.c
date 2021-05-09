@@ -91,6 +91,7 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
 
 
 void routing(struct Graph* g,StrHash hash,int dest){
+    printf("Entered Rounting");
     for (int i = 0; i < Ncars; i++)
     {
         car[i].location_ptr = 1;
@@ -102,12 +103,13 @@ void routing(struct Graph* g,StrHash hash,int dest){
         car[i].time_to_change = calc_time((long long)hash->bkt_arr[index].congestion,(long long)hash->bkt_arr[index].length);
         
     }
+    printf("\n initalised conditions");
     long long int time=0;
     int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
-    
     while(1){
         time++;
-        have_i_reached_node =0;
+        printf("\n %lld",time);
+        have_i_reached_node = 0;
         for(int i=0;i<Ncars;i++){               //updates the location for every car and the changes in edge weights are accounted for in this loop
             update_cars(g,i,time,hash);            //updates the location of each individual car and the edge weights accordingly
         }

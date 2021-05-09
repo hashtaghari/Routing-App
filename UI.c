@@ -23,7 +23,6 @@ void loading_animation(){
 void main_menu(){
    // textcolor(14);
    // textbackground(0);
-    int menu_entry;
     system("cls");
     printf("\n                                     MAIN MENU");
     printf("\n                              -----------------------");
@@ -35,7 +34,6 @@ void main_menu(){
     printf("\n                               6.Exit");
     printf("\n                              -----------------------");
     printf("\n                              Your Choice:");
-    scanf("%d",menu_entry);
 }
 void intro_animation(){
   //  textcolor(YELLOW);

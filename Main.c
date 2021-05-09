@@ -48,6 +48,7 @@ int main(){
                 me.curr_node=me.start_node;
                 printf("\n Enter Your Destination Node:");
                 scanf("%d",&dest);
+                me.end_node=dest;
                 routing(g,hash,dest);
                 break;
             case 4:
@@ -57,7 +58,6 @@ int main(){
                 // about_us();
                 break;
             case 6:
-                system("cls");
                 printf("\nThank you for using our Routing Guide!");
                 // delay(1500);
                 break;
