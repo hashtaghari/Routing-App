@@ -17,23 +17,31 @@ struct MinHeap
     struct MinHeapNode **array;
 };
 
-// functions related to heap
+//Functions related to heap.
 
-struct MinHeapNode *newMinHeapNode(int v, int dist);//creates a new heap node with given data and returns its pointer
+//Creates a new heap node with given data and returns its pointer.
+struct MinHeapNode *newMinHeapNode(int v, int dist);
 
-struct MinHeap *createMinHeap(int capacity);//creates a new heap of given capacity and returns pointer to its head
+//Creates a new heap of given capacity and returns pointer to its head.
+struct MinHeap *createMinHeap(int capacity);
 
-void swapMinHeapNode(struct MinHeapNode **a, struct MinHeapNode **b);//swaps 2 nodes of a heap
+//Swaps 2 nodes of a heap.
+void swapMinHeapNode(struct MinHeapNode **a, struct MinHeapNode **b);
 
-void minHeapify(struct MinHeap *minHeap, int idx);//minimum heapifys a given heap for provided index 
+//Minimum heapifys a given heap for provided index. 
+void minHeapify(struct MinHeap *minHeap, int idx);
 
-int isEmpty(struct MinHeap *minHeap);//returns TRUE if heap is empty
+//Returns TRUE if heap is empty.
+int isEmpty(struct MinHeap *minHeap);
 
-struct MinHeapNode *extractMin(struct MinHeap *minHeap);//Standard function to extract the minimum element from heap
+//Standard function to extract the minimum element from heap.
+struct MinHeapNode *extractMin(struct MinHeap *minHeap);
 
-void decreaseKey(struct MinHeap *minHeap, int v, int dist);//Function to decreasy dist value of a given vertex v. This function uses pos[] of min heap to get the current index of node in min heap
+//Function to decreasy dist value of a given vertex v. This function uses pos[] of min heap to get the current index of node in min heap.
+void decreaseKey(struct MinHeap *minHeap, int v, int dist);
 
-bool isInMinHeap(struct MinHeap *minHeap, int v);//A utility function to check if a given vertex 'v' is in min heap or not
+//A utility function to check if a given vertex 'v' is in min heap or not.
+bool isInMinHeap(struct MinHeap *minHeap, int v);
 
 
 #endif
