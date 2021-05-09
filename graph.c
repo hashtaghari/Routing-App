@@ -9,7 +9,7 @@ struct Edge *newEdge(int dest, int Length, char *name) //return a new edge with 
     struct Edge *newEdgeNode = (struct Edge *)malloc(sizeof(struct Edge));
     newEdgeNode->dest = dest;
     newEdgeNode->Length = Length;
-    newEdgeNode->congestion = Length;
+    newEdgeNode->congestion = 0;
     strcpy(newEdgeNode->name, name);
     newEdgeNode->next = NULL;
     return newEdgeNode;
