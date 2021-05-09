@@ -129,6 +129,8 @@ void routing(struct Graph* g,StrHash hash,int dest){
     long long int time=0;
     int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
     // printf("%d %d %lld\n",me.curr_node,me.end_node,me.time_to_change);
+    if(next.v2==dest)
+        goto L1;
     while(1){
         time++;
         // printf("\n %lld",time);
@@ -139,7 +141,8 @@ void routing(struct Graph* g,StrHash hash,int dest){
         // printf("\n%d %d %lld\n",me.curr_node,me.end_node,me.time_to_change);
         have_i_reached_node=update_myloc(g,time,hash,dest); //update 'me' variable, i.e. details of my car
         if(have_i_reached_node==1){
-            printf("You have reached your destination");
+            L1:
+            printf("\nYou have reached your destination");
             getch();
             break;
         }
