@@ -11,6 +11,7 @@ int Ncars; //The number of cars.
 #include "structs.h"
 
 struct Graph *add_map();
+void about_us();
 
 int main()
 {
@@ -19,8 +20,8 @@ int main()
     int menu_entry;
     struct Graph *g;
     StrHash hash = Init_StrHash((int)10e5);
-    // loading_animation();
-    // intro_animation();
+    loading_animation();
+    intro_animation();
     do
     {
         main_menu();
@@ -54,10 +55,10 @@ int main()
             routing(g, hash, dest);
             break;
         case 4:
-            // instruction();
+            system("README.md");
             break;
         case 5:
-            // about_us();
+            about_us();
             break;
         case 6:
             printf("\nThank you for using our Routing Guide!");
@@ -232,4 +233,9 @@ struct Graph *add_map()
     }
     saveGraph(graph, "g2");
     return graph;
+}
+
+void about_us(){
+    system("cls");
+    printf("This application was created by:\n");
 }
