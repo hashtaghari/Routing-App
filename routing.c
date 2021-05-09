@@ -4,8 +4,7 @@
 #include"string-hash.h"
 
 long long int calc_time(int cars,int length){
-    long long int factora=1000;
-    cars=0;
+    long long int factora=1;
     long long int factorb= 1;
     long long int time = (long long int)cars*(long long int)cars/factora + (long long int)length*factorb;
     return time;
