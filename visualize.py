@@ -2,10 +2,11 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 f = open(".\\data\\g2.txt", "r")
-# f2 = open(".\\data\\curr_edge.tmp", "r")
+f2 = open(".\\data\\curr_edge.txt", "r")
 
-# name = list(f2.readline)
-name = "name1"
+name_edge = f2.readline()
+# print("\n in python name : "+name_edge)
+# name = "name1"
 
 highleted_color = "orange"
 back_ground = "#59999c"
@@ -19,8 +20,8 @@ color_list = []
 for line in f:
     data = line.split()
     # print(data)
-    G.add_edge(data[0], data[1], edge_labels=data[2], lenght=(2*len(data[2])))
-    if(data[2] == name):
+    G.add_edge(data[0], data[1], edge_labels=data[2], lenght=(1.33*len(data[2])))
+    if(data[2] == name_edge):
         color_list.append(highleted_color)
     else:
         color_list.append(edge_color)

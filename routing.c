@@ -31,6 +31,7 @@ void update_cars(struct Graph* g,int i,int time,StrHash hash){
 
 int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
     char is_free;
+    FILE * fp = fopen(".\\data\\curr_edge.txt","w");
     if(time==me.time_to_change){ //if my car has reached the end of a street
         //me.curr_street=
         //me.curr_node= //update, obtain the current node from street end
@@ -55,7 +56,7 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
             e = e->next;
         }
         strcpy(me.curr_street,e->name);
-   
+      
         //update congestion values for both nodes 
         int next_index = Find_StrHash(hash,me.curr_street);
         StrHash_NODE next = hash->bkt_arr[next_index];
@@ -65,8 +66,11 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
         hash->bkt_arr[next_index].congestion++;
         increaseCongestion(g,next.v1,next.v2);
 
+        printf("\nYou are currently at intersection : %d",me.curr_node);
         printf("\n The next route  you must take is : %s",me.curr_street);
         // printf("\n Is the path ahead avalible to travel? (Y/N)");
+        fprintf(fp,"%s\n",me.curr_street);
+        fclose(fp);
 
         // scanf("%c",is_free);
         
@@ -82,7 +86,6 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
             //     //dijikstra(me.curr_node,destination) // if no path available say->can't find any path 
             // }
         // printf("Our path is %s\n",next.str);
-        printf("\nme.curr : %d\n",me.curr_node);
         system("python .\\visualize.py");
 
         if(next.v2==dest)
@@ -96,7 +99,10 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
 
 
 void routing(struct Graph* g,StrHash hash,int dest){
-    printf("Entered Rounting");
+
+    FILE* fp = fopen(".\\data\\curr_edge.txt","w");
+
+    // printf("Entered Rounting");
     for (int i = 0; i < Ncars; i++)
     {
         car[i].location_ptr = 1;
@@ -119,15 +125,20 @@ void routing(struct Graph* g,StrHash hash,int dest){
         e1 = e1->next;
     }
     strcpy(me.curr_street,e1->name);
+    
     //update congestion values for both nodes 
     int next_index = Find_StrHash(hash,me.curr_street);
     StrHash_NODE next = hash->bkt_arr[next_index]; //next has information about the edge
     me.time_to_change= calc_time(next.congestion,next.length);/* obtain using car[i].names_of_streets[location_ptr])*/
     hash->bkt_arr[next_index].congestion++;
     increaseCongestion(g,next.v1,next.v2);
-    printf("\n The next route  you must take is : %s",me.curr_street);
+    printf("\nYou are currently at intersection : %d",me.curr_node);
+    printf("\n The next route you must take is : %s",me.curr_street);
     // printf("\n initalised conditions");
-        system("python .\\visualize.py");
+    fprintf(fp,"%s\n",me.curr_street);
+    fclose(fp);
+    
+    system("python .\\visualize.py");
 
     long long int time=0;
     int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
