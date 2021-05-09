@@ -1,3 +1,6 @@
+#ifndef _GRAPH_H_
+#define _GRAPH_H_
+
 struct Edge //structure for storing information about each street
 {
     int dest;          //destination node
@@ -34,3 +37,6 @@ int updateEdge(struct Graph *g, int src, int dest, int newCongestion);
 int increaseCongestion(struct Graph *g, int src, int dest);
 
 int decreaseCongestion(struct Graph *g, int src, int dest);
+
+
+#endif

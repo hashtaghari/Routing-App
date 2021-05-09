@@ -1,3 +1,4 @@
+int Ncars;//The number of cars.
 #include "Main.h"
 #include "UI.c"
 #include"graph.h"
@@ -7,23 +8,23 @@
 #include"string-hash.h"
 #include<stdio.h>
 #include<stdlib.h>
-#include"graph.c"
 #include"structs.h"
 
 
-int Ncars;//The number of cars.
+struct Graph* add_map();
 
 int main(){
     int dest; //destination node to obtain input and send to routing function
-    restore_values();//restores all the variable information from txt files.
+    // restore_values();//restores all the variable information from txt files.
     int menu_entry;
     struct Graph *g;
     StrHash hash = Init_StrHash((int)10e5);
-    loading_animation();
-    intro_animation();
-    do{
+    // loading_animation();
+    // intro_animation();
+    do{ 
         main_menu();
-        scanf("%d",menu_entry);
+        scanf("%d",&menu_entry);
+        // printf("%d",menu_entry);
         switch(menu_entry){
             case 1:
                 g = add_map();
@@ -38,26 +39,27 @@ int main(){
                 }
                 break;
             case 2:
-                modify_map_usr(g);
+                // modify_map_usr(g);
                 break;
             case 3:
                 system("cls");
                 printf("\n Enter Your Start Node:");
-                scanf("%d",me.start_node);
+                scanf("%d",&me.start_node);
                 me.curr_node=me.start_node;
                 printf("\n Enter Your Destination Node:");
                 scanf("%d",&dest);
                 routing(g,hash,dest);
                 break;
             case 4:
-                instruction();
+                // instruction();
                 break;
             case 5:
-                about_us();
+                // about_us();
                 break;
             case 6:
+                system("cls");
                 printf("\nThank you for using our Routing Guide!");
-                delay(1500);
+                // delay(1500);
                 break;
             default:
                 printf("\n Invalid Entry! (Press any key to continue)");
@@ -67,11 +69,6 @@ int main(){
     }while(menu_entry!=6);
     //save all the required variable data in different files as per the plan so that it can be retained after the program is closed.
     return 0;
-}
-
-struct Graph* add_map(){
-    system("cls");
-    printf("How do you want to enter input?");
 }
 
 
@@ -133,7 +130,7 @@ struct Graph* add_map() {
             car[y].num_streets = P;
             for (int z = 0; z < P; ++z) {
                 scanf("%s", streetName); //Takes in each individual name of the street a said car will travel through.
-                strcpy(car[y].names_of_streets[z], streetName);
+                strcpy(car[y].names_of_streets[z],streetName);
             }
             // car[y].location_ptr = car[y].names_of_streets[0];
             car[y].time_to_change = 0;

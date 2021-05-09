@@ -3,6 +3,13 @@
 #include"graph.h"
 #include"string-hash.h"
 
+long long int calc_time(int cars,int length){
+    long long int factora=1000;
+    long long int factorb= 1;
+    long long int time = (long long int)cars*(long long int)cars/factora + (long long int)length*factorb;
+    return time;
+}
+
 void update_cars(struct Graph* g,int i,int time,StrHash hash){
     if(time=car[i].time_to_change && car[i].location_ptr<car[i].num_streets){ //if the car has reached the end of the edge and it still has more edge(s) to cover
         //**Naval->  update_edge(car[i].names_of_streets[location_ptr]) decrease by 1
@@ -81,12 +88,7 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
     return 0;
 }
 
-long long int calc_time(int cars,int length){
-    long long int factora=1000;
-    long long int factorb= 1;
-    long long int time = (long long int)cars*(long long int)cars/factora + (long long int)length*factorb;
-    return time;
-}
+
 
 void routing(struct Graph* g,StrHash hash,int dest){
     for (int i = 0; i < Ncars; i++)

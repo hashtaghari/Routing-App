@@ -1,4 +1,5 @@
-
+#ifndef _STACK_H_
+#define _STACK_H_
 
 struct StackNode
 {
@@ -14,3 +15,6 @@ void push(struct StackNode **root, int data);
 int pop(struct StackNode **root);
 int peek(struct StackNode **root_ref);
 void printstack(Stack *s);
+
+
+#endif
