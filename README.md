@@ -1,7 +1,6 @@
 # Routing-Grp-26
 ##How to use the code.
 
-This is the Github Repository of the DSA mini project of Group 26, UG2K20, IIIT Hyderabad 
 To compile, use gcc Main.c .\graph.c .\stack.c .\string-hash.c .\heap.c 
 Make sure you have python installed and the graphing library installed (using pip install networkx matplotlib as root)
 
