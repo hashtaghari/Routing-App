@@ -256,11 +256,11 @@ void about_us(){
     delay(750);
     printf("Rajarshi Ray");
     delay(250);
-    printf(" (2020)\n\n");
+    printf(" (2020101127)\n\n");
     
     delay(750);
-    printf("Rohan ");
+    printf("Rohan Reddy B");
     delay(250);
-    printf(" (20201)\n\n");
+    printf(" (2020102039)\n\n");
     getch();
 }
