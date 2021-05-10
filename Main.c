@@ -237,5 +237,31 @@ struct Graph *add_map()
 
 void about_us(){
     system("cls");
-    printf("This application was created by:\n");
+    printf("This application was created by:\n\n");
+    delay(750);
+    printf("Hariharan Kalimuthu");
+    delay(250);
+    printf(" (2020115015)\n\n");
+    delay(750);
+    delay(750);
+    printf("Naval Surange");
+    delay(250);
+    printf(" (202011)\n\n");
+    delay(750);
+    delay(750);
+    printf("Priyansh");
+    delay(250);
+    printf(" (20201)\n\n");
+    delay(750);
+    delay(750);
+    printf("Rajarshi Ray");
+    delay(250);
+    printf(" (2020)\n\n");
+    delay(750);
+    delay(750);
+    printf("Rohan ");
+    delay(250);
+    printf(" (20201)\n\n");
+    delay(750);
+    getch();
 }
