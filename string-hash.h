@@ -21,7 +21,7 @@ struct str_hash_node {
     int congestion;
 };
 
-//Renaming the structure.
+//Renaming the structure for Hash Node.
 typedef struct str_hash_node StrHash_NODE;
 
 //Creating the structure for hash table.
@@ -35,15 +35,22 @@ struct StrHash {
     StrHash_NODE *bkt_arr;
 };
 
+//Renaming the structure for Hash Table. 
 typedef struct StrHash *StrHash;
 
+//To find the length of a string.
 int len(char *str);
+//Hashes using the given string. Horner Hash.
 unsigned long int Str_Hash(char *str, unsigned long int cap);
 
+//Initializes the Hash Table.
 StrHash Init_StrHash(unsigned long int cap);
+//Inserting into the Hash Table (to be used inside Insert_StrHash).
 void __insert_StrHash(StrHash_NODE *arr, char *data, unsigned long int index, unsigned long int cap, int v1, int v2, int congestion,int length);
+//Rehashing in case of collision in the the Hash Table.
 void Rehash_StrHash(StrHash table, unsigned long int new_size);
-
+//Inserting into the Hash Table.
 void Insert_StrHash(StrHash table, char *data, int v1, int v2, int congestion,int length);
+//To find particular data inside the hash table.
 unsigned long int Find_StrHash(StrHash table, char *data);
 #endif

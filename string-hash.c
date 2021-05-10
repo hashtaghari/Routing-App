@@ -43,8 +43,7 @@ unsigned long int Str_Hash(char *str, unsigned long int cap)
     unsigned long int index = 0;
     int len = strlen(str);
     unsigned long long pow = 1;
-    for (int i = 0; i < len; i++)
-    {
+    for (int i = 0; i < len; i++) {
         index = (index + (str[i] - 'a' + 1) * pow) % cap;
         pow = (pow * p) % cap;
     }
