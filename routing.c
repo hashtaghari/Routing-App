@@ -93,7 +93,7 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
         }
         else
         {
-            getchar();
+            getch();
         }
         if(next.v2==dest)
         return 1;
@@ -106,7 +106,6 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
 
 
 void routing(struct Graph* g,StrHash hash,int dest){
-
     FILE* fp = fopen(".\\data\\curr_edge.txt","w");
     system("cls");
     // printf("Entered Rounting");
@@ -151,7 +150,7 @@ void routing(struct Graph* g,StrHash hash,int dest){
     }
     else
     {
-        printf("Map size is too large to be depicted\n");
+        printf("\nMap size is too large to be depicted.\n");
     }
 
     long long int time=0;
