@@ -13,40 +13,44 @@ long long int calc_time(int cars,int length){
 void update_cars(struct Graph* g,int i,int time,StrHash hash){
     if(time==car[i].time_to_change && car[i].location_ptr<car[i].num_streets){ //if the car has reached the end of the edge and it still has more edge(s) to cover
         //**Naval->  update_edge(car[i].names_of_streets[location_ptr]) decrease by 1
-        long long index = Find_StrHash(hash,car[i].names_of_streets[car[i].location_ptr]) ;
+        long long index = Find_StrHash(hash,car[i].names_of_streets[car[i].location_ptr]) ;//finding the index of the edge where the car currently is at using a hash function
 
-        hash->bkt_arr[index].congestion--;
-        decreaseCongestion(g,hash->bkt_arr[index].v1,hash->bkt_arr[index].v2);
+        hash->bkt_arr[index].congestion--;//decreasing the traffic at the street(edge) by 1 as the car has crossed it(in hash table)
+        decreaseCongestion(g,hash->bkt_arr[index].v1,hash->bkt_arr[index].v2);//decreasing the traffic at the street(edge) by 1 as the car has crossed it(in the graph)
 
-        car[i].location_ptr++;
+        car[i].location_ptr++;//updating the car's location to it's next path
 
-        //**Naval->  update_edge(car[i].names_of_streets[location_ptr]) increase by 1
-        index = Find_StrHash(hash,car[i].names_of_streets[car[i].location_ptr]) ;
+       
+        index = Find_StrHash(hash,car[i].names_of_streets[car[i].location_ptr]) ;//finding the index of the edge where the car currently is at using a hash function
 
-        hash->bkt_arr[index].congestion++;
-        increaseCongestion(g,hash->bkt_arr[index].v1,hash->bkt_arr[index].v2);
-        car[i].time_to_change+= calc_time((long long)hash->bkt_arr[index].congestion,(long long)hash->bkt_arr[index].length);/* obtain using car[i].names_of_streets[location_ptr])*/
+        hash->bkt_arr[index].congestion++;//increasing the traffic at the street(edge) by 1 as the car has just entered it(in hash table)
+        increaseCongestion(g,hash->bkt_arr[index].v1,hash->bkt_arr[index].v2);//increasing the traffic at the street(edge) by 1 as the car has just entered it(in the graph)
+        car[i].time_to_change+= calc_time((long long)hash->bkt_arr[index].congestion,(long long)hash->bkt_arr[index].length);//updating the time it'll take for the car to cross the current street as a function of congestion and length of the street
     }
 }
 
 int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
     char is_free;
+    is_free='y';
     FILE * fp = fopen(".\\data\\curr_edge.txt","w");
     if(time==me.time_to_change){ //if my car has reached the end of a street
-        //me.curr_street=
-        //me.curr_node= //update, obtain the current node from street end
-        int currindex = Find_StrHash(hash,me.curr_street); 
-        StrHash_NODE  a = hash->bkt_arr[currindex];
+        
+        /*do{
+            if(is_free!='y' || is_free!='Y'){
+                updateEdge(g,me.curr_node,next.v2,100);
+            }*/
+        int currindex = Find_StrHash(hash,me.curr_street); //obtaing the index of the information stored about the edge using hash function via the edge name
+        StrHash_NODE  a = hash->bkt_arr[currindex];//saving the deatils about the edge in the variable 'a'
 
-        hash->bkt_arr[currindex].congestion--;
-        decreaseCongestion(g,a.v1,a.v2);
+        hash->bkt_arr[currindex].congestion--;//decreasing the congestion of the road we crossed by 1 in the hash table
+        decreaseCongestion(g,a.v1,a.v2);//decreasing the congestion of the road we crossed by 1 in the graph
 
-        me.curr_node = a.v2;
+        me.curr_node = a.v2;//updating the current node we are at
         // printf("a.v2 = %d \n",a.v2);
 
-        Stack s = dijikstra(g,me.curr_node,dest);
-        int new;
-        struct Edge* e  = g->array[me.curr_node].head;
+        Stack s = dijikstra(g,me.curr_node,dest);//applying dijkstra's algorithm between current node and the destination node to find out the best route 
+        
+        struct Edge* e  = g->array[me.curr_node].head;//finding out the name of the edge using current node and next node to travel
         while(e!=NULL)
         {
             if(e->dest == peek(&s))
@@ -55,24 +59,35 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
             }
             e = e->next;
         }
-        strcpy(me.curr_street,e->name);
+        strcpy(me.curr_street,e->name);//updating information about the current node
       
-        //update congestion values for both nodes 
-        int next_index = Find_StrHash(hash,me.curr_street);
+        
+        int next_index = Find_StrHash(hash,me.curr_street);//obtaining information about the next street to travel using the hash function and saving it to the variable 'next'
         StrHash_NODE next = hash->bkt_arr[next_index];
        
-        me.time_to_change+= calc_time(next.congestion,next.length);/* obtain using car[i].names_of_streets[location_ptr])*/
+        me.time_to_change+= calc_time(next.congestion,next.length);//updating the time it'll take to reach the end of this street as a function of length and congestion
         
-        hash->bkt_arr[next_index].congestion++;
-        increaseCongestion(g,next.v1,next.v2);
+        hash->bkt_arr[next_index].congestion++;//increasing congestion by 1 in new street (hash table)
+        increaseCongestion(g,next.v1,next.v2);//increasing congestion by 1 in new street (graph)
 
-        printf("\n\nYou are currently at intersection : %d",me.curr_node);
-        printf("\nThe next route  you must take is : %s",me.curr_street);
-        // printf("\n Is the path ahead avalible to travel? (Y/N)");
-        fprintf(fp,"%s\n",me.curr_street);
+        printf("\n\nYou are currently at intersection : %d",me.curr_node);//printing the current location
+        printf("\nThe next route  you must take is : %s",me.curr_street);//suggesting the next path to tread
+        
+        fprintf(fp,"%s\n",me.curr_street);//writing the name of the next edge on a file so that it can be used by visualise.py to highlight suggested path
         fclose(fp);
-
-        // scanf("%c",is_free);
+        
+        if(g->V <= 100 || g->E <=100 ) //printing the graph if the number of nodes/edges isn't too large
+        {
+            system("python .\\visualize.py");
+        }
+        else
+        {
+            getch();
+        }
+        /*printf("\n Is the path ahead avalible to travel? (Y/N)");
+        scanf(" %c",&is_free);
+        } while(is_free=='N'||is_free=='n');*/
+    
         
         // while (is_free=='N' || 'n')
         // {
@@ -87,15 +102,8 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
             // }
         // printf("Our path is %s\n",next.str);
         
-         if(g->V <= 100 || g->E <=100 )
-        {
-            system("python .\\visualize.py");
-        }
-        else
-        {
-            getch();
-        }
-        if(next.v2==dest)
+        
+        if(next.v2==dest)//if the next node is our destination return 1, else return 0
         return 1;
         else
         return 0;
@@ -106,21 +114,24 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
 
 
 void routing(struct Graph* g,StrHash hash,int dest){
-    FILE* fp = fopen(".\\data\\curr_edge.txt","w");
+    FILE* fp = fopen(".\\data\\curr_edge.txt","w"); //opening text file to give information to visualise.py
     system("cls");
-    // printf("Entered Rounting");
-    for (int i = 0; i < Ncars; i++)
+    // initialising conditions for simulation time 'time'=0
+    
+    for (int i = 0; i < Ncars; i++)//updating the initial information about each car
     {
-        car[i].location_ptr = 1;
-        int index = Find_StrHash(hash,car[i].names_of_streets[car[i].location_ptr]) ;
-        hash->bkt_arr[index].congestion++;
-        increaseCongestion(g,hash->bkt_arr[index].v1,hash->bkt_arr[index].v2);
+        car[i].location_ptr = 1; //updating the initial location of the car
+        int index = Find_StrHash(hash,car[i].names_of_streets[car[i].location_ptr]) ;//finding the details of the edge by using a hashing function
+        hash->bkt_arr[index].congestion++;//increasing the traffic on that street(edge) by 1 on the hash table
+        increaseCongestion(g,hash->bkt_arr[index].v1,hash->bkt_arr[index].v2);//increasing the traffic on that street(edge) by 1 on the graph
 
-        car[i].time_to_change = calc_time((long long)hash->bkt_arr[index].congestion,(long long)hash->bkt_arr[index].length);
+        car[i].time_to_change = calc_time((long long)hash->bkt_arr[index].congestion,(long long)hash->bkt_arr[index].length);//calculating the time it'll take for the car to reach 
         
     }
 
-    Stack s3 = dijikstra(g,me.curr_node,dest) ;
+    Stack s3 = dijikstra(g,me.curr_node,dest) ;//applying dijkstra's algorithm to find out the best possible route from starting node to destinartion
+    //the following 30 lines are the same as the update_myloc funciton, except that this is filling up the data for initial conditions when time t=0
+    //please refer to update_myloc(___) function to understand what each command achieves 
     struct Edge* e1  = g->array[me.curr_node].head;
     while(e1!=NULL)
     {
@@ -153,13 +164,13 @@ void routing(struct Graph* g,StrHash hash,int dest){
         printf("\nMap size is too large to be depicted.\n");
     }
 
-    long long int time=0;
+    long long int time=0; //setting the simulation time to 0
     int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
     // printf("%d %d %lld\n",me.curr_node,me.end_node,me.time_to_change);
     if(next.v2==dest)
         goto L1;
     while(1){
-        time++;
+        time++;//increasing the time unit by 1
         // printf("\n %lld",time);
         have_i_reached_node = 0;
         for(int i=0;i<Ncars;i++){               //updates the location for every car and the changes in edge weights are accounted for in this loop
