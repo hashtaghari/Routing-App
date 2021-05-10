@@ -251,7 +251,7 @@ void about_us(){
     delay(750);
     printf("Priyansh");
     delay(250);
-    printf(" (20201)\n\n");
+    printf(" (2020101056)\n\n");
     
     delay(750);
     printf("Rajarshi Ray");
