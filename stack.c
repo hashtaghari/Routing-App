@@ -35,6 +35,7 @@ int pop(struct StackNode **root) {
     return popped;
 }
 
+//Function to fetch the name of the edge given to the starting node and ending node.
 int peek(struct StackNode **root_ref) {
     Stack root = *root_ref;
     if (isEmptyStack(&root))
