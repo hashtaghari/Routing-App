@@ -9,7 +9,7 @@ Hi_edge = Hi_edge_list[0]
 
 Hi_edge = str(Hi_edge)
 
-print("\n in python name : " + Hi_edge)
+//print("\n in python name : " + Hi_edge)
 
 
 highleted_color = "orange"

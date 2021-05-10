@@ -157,7 +157,7 @@ void routing(struct Graph* g,StrHash hash,int dest){
 
         if(have_i_reached_node==1){
             L1:
-            printf("\n\nThe next route you must take is : %s",me.curr_street);
+            printf("\n\nYou are currently at intersection : %d",me.curr_node);
             printf("\nYou have reached your destination");
             getch();
             break;
