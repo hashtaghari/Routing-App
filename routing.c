@@ -39,7 +39,8 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
         do{
             if(is_free=='n' || is_free=='N'){
                 //printf("modified**");
-                updateEdge(g,me.curr_node,n_node.v2,100);//updating the newly obtained congestion information
+                updateEdge(g,me.curr_node,n_node.v2,100);//updating the newly obtained congestion information(in graph)
+                //update in hash table //updating the newly obtained congestion information(in graph)
             }
         int currindex = Find_StrHash(hash,me.curr_street); //obtaing the index of the information stored about the edge using hash function via the edge name
         StrHash_NODE  a = hash->bkt_arr[currindex];//saving the deatils about the edge in the variable 'a'
@@ -123,7 +124,8 @@ void routing(struct Graph* g,StrHash hash,int dest){
     do{
             if(is_free=='n' || is_free=='N'){
                  //printf("modified**");
-                updateEdge(g,me.curr_node,n_node.v2,100);//updating the newly obtained congestion information
+                updateEdge(g,me.curr_node,n_node.v2,100);//updating the newly obtained congestion information(in graph)
+                //update in hash table //updating the newly obtained congestion information(in graph)
             }
     Stack s3 = dijikstra(g,me.curr_node,dest) ;//applying dijkstra's algorithm to find out the best possible route from starting node to destinartion
     //the following ~30 lines are the same as the update_myloc funciton, except that this is filling up the data for initial conditions when time t=0
