@@ -32,13 +32,15 @@ void update_cars(struct Graph* g,int i,int time,StrHash hash){
 int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
     char is_free;
     is_free='y';
+    StrHash_NODE n_node;
     FILE * fp = fopen(".\\data\\curr_edge.txt","w");
     if(time==me.time_to_change){ //if my car has reached the end of a street
         
-        /*do{
-            if(is_free!='y' || is_free!='Y'){
-                updateEdge(g,me.curr_node,next.v2,100);
-            }*/
+        do{
+            if(is_free=='n' || is_free=='N'){
+                //printf("modified**");
+                updateEdge(g,me.curr_node,n_node.v2,100);
+            }
         int currindex = Find_StrHash(hash,me.curr_street); //obtaing the index of the information stored about the edge using hash function via the edge name
         StrHash_NODE  a = hash->bkt_arr[currindex];//saving the deatils about the edge in the variable 'a'
 
@@ -84,26 +86,13 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
         {
             getch();
         }
-        /*printf("\n Is the path ahead avalible to travel? (Y/N)");
+        printf("\n Is the path ahead avalible to travel? (Y/N): ");
         scanf(" %c",&is_free);
-        } while(is_free=='N'||is_free=='n');*/
-    
+        n_node.v2=next.v2;
+        } while(is_free=='N'||is_free=='n'); //loop runs again with updated congestion information obtained just now and tries to find  a new path if it exists
+          
         
-        // while (is_free=='N' || 'n')
-        // {
-        //     updateEdge(g,me.curr_node,me.end_node,10000);
-        //     dijikstra(g,a.v2,dest);
-
-        // }
-        
-            // if(is_free=='N' || 'n'){
-            //     //modify the suggested path edge weight->infinity
-            //     //dijikstra(me.curr_node,destination) // if no path available say->can't find any path 
-            // }
-        // printf("Our path is %s\n",next.str);
-        
-        
-        if(next.v2==dest)//if the next node is our destination return 1, else return 0
+        if(n_node.v2==dest)//if the next node is our destination return 1, else return 0
         return 1;
         else
         return 0;
@@ -114,6 +103,7 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
 
 
 void routing(struct Graph* g,StrHash hash,int dest){
+    StrHash_NODE n_node;
     FILE* fp = fopen(".\\data\\curr_edge.txt","w"); //opening text file to give information to visualise.py
     system("cls");
     // initialising conditions for simulation time 'time'=0
@@ -128,9 +118,15 @@ void routing(struct Graph* g,StrHash hash,int dest){
         car[i].time_to_change = calc_time((long long)hash->bkt_arr[index].congestion,(long long)hash->bkt_arr[index].length);//calculating the time it'll take for the car to reach 
         
     }
-
+    char is_free;
+    is_free='y';
+    do{
+            if(is_free=='n' || is_free=='N'){
+                 //printf("modified**");
+                updateEdge(g,me.curr_node,n_node.v2,100);
+            }
     Stack s3 = dijikstra(g,me.curr_node,dest) ;//applying dijkstra's algorithm to find out the best possible route from starting node to destinartion
-    //the following 30 lines are the same as the update_myloc funciton, except that this is filling up the data for initial conditions when time t=0
+    //the following ~30 lines are the same as the update_myloc funciton, except that this is filling up the data for initial conditions when time t=0
     //please refer to update_myloc(___) function to understand what each command achieves 
     struct Edge* e1  = g->array[me.curr_node].head;
     while(e1!=NULL)
@@ -163,11 +159,14 @@ void routing(struct Graph* g,StrHash hash,int dest){
     {
         printf("\nMap size is too large to be depicted.\n");
     }
-
+    printf("\n Is the path ahead avalible to travel? (Y/N): ");
+        scanf(" %c",&is_free);
+        n_node.v2=next.v2;
+        } while(is_free=='N'||is_free=='n');
     long long int time=0; //setting the simulation time to 0
     int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
     // printf("%d %d %lld\n",me.curr_node,me.end_node,me.time_to_change);
-    if(next.v2==dest)
+    if(n_node.v2==dest)
         goto L1;
     while(1){
         time++;//increasing the time unit by 1
