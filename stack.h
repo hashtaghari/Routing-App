@@ -1,12 +1,13 @@
 #ifndef _STACK_H_
 #define _STACK_H_
 
-struct StackNode
-{
+//Structure for creating a node for a Stack
+struct StackNode {
     int data;
     struct StackNode *next;
 };
 
+//Making a stack out of array of Stack Nodes
 typedef struct StackNode *Stack;
 
 struct StackNode *newNode(int data);
