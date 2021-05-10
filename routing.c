@@ -86,8 +86,15 @@ int update_myloc(struct Graph*g ,int time,StrHash hash,int dest){
             //     //dijikstra(me.curr_node,destination) // if no path available say->can't find any path 
             // }
         // printf("Our path is %s\n",next.str);
-        system("python .\\visualize.py");
-
+        
+         if(g->V <= 100 || g->E <=100 )
+        {
+            system("python .\\visualize.py");
+        }
+        else
+        {
+            getchar();
+        }
         if(next.v2==dest)
         return 1;
         else
@@ -138,7 +145,14 @@ void routing(struct Graph* g,StrHash hash,int dest){
     fprintf(fp,"%s\n",me.curr_street);
     fclose(fp);
     
+    if(g->V <= 100 || g->E <=100 )
+    {
     system("python .\\visualize.py");
+    }
+    else
+    {
+        printf("Map size is too large to be depicted\n");
+    }
 
     long long int time=0;
     int have_i_reached_node=0; //a flag varriable to know if we've crossed a street or not
