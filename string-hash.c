@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int is_prime(unsigned long int n)
-{
+//To check if an inputted number os prime or not.
+int is_prime(unsigned long int n) {
     if (n <= 1)
         return 0;
     if (n <= 3)
@@ -20,8 +20,8 @@ int is_prime(unsigned long int n)
     return 1;
 }
 
-unsigned long int next_prime(unsigned long int n)
-{
+//To look for the immediate next prime number.
+unsigned long int next_prime(unsigned long int n) {
     if (n <= 1)
         return 2;
     unsigned long int prime = n;
@@ -37,8 +37,8 @@ unsigned long int next_prime(unsigned long int n)
     return prime;
 }
 
-unsigned long int Str_Hash(char *str, unsigned long int cap)
-{
+//Hashes using the given string. Horner Hash.
+unsigned long int Str_Hash(char *str, unsigned long int cap) {
     const int p = 31;
     unsigned long int index = 0;
     int len = strlen(str);
@@ -51,6 +51,7 @@ unsigned long int Str_Hash(char *str, unsigned long int cap)
     return abs(index);
 }
 
+//Initializes the Hash Table.
 StrHash Init_StrHash(unsigned long int cap)
 {
 
@@ -69,6 +70,7 @@ StrHash Init_StrHash(unsigned long int cap)
     return table;
 }
 
+//Inserting into the Hash Table (to be used inside Insert_StrHash).
 void __insert_StrHash(StrHash_NODE *arr, char *str, unsigned long int index, unsigned long int cap, int v1, int v2, int congestion, int length)
 {
     unsigned long int i = 1;
@@ -94,8 +96,8 @@ void __insert_StrHash(StrHash_NODE *arr, char *str, unsigned long int index, uns
     }
 }
 
-void Rehash_StrHash(StrHash table, unsigned long int new_size)
-{
+//Rehashing in case of collision in the the Hash Table.
+void Rehash_StrHash(StrHash table, unsigned long int new_size) {
     unsigned long int old_cap = table->cap;
 
     StrHash_NODE *new_arr;
@@ -118,6 +120,7 @@ void Rehash_StrHash(StrHash table, unsigned long int new_size)
     table->bkt_arr = new_arr;
 }
 
+//Inserting into the Hash Table.
 void Insert_StrHash(StrHash table, char *str, int v1, int v2, int congestion, int length)
 {
     if (table->curr >= (double)(table->cap - 1) / (double)2)
@@ -132,6 +135,7 @@ void Insert_StrHash(StrHash table, char *str, int v1, int v2, int congestion, in
     table->curr++;
 }
 
+//To find particular data inside the hash table.
 unsigned long int Find_StrHash(StrHash table, char *str)
 {
     unsigned long int index = Str_Hash(str, table->cap);
@@ -156,8 +160,8 @@ unsigned long int Find_StrHash(StrHash table, char *str)
     }
 }
 
-void DeleteStrHash(StrHash *table_ref)
-{
+//To delete contents of a node.
+void DeleteStrHash(StrHash *table_ref) {
     (*table_ref)->cap = 0;
     (*table_ref)->curr = 0;
     free((*table_ref)->bkt_arr);
