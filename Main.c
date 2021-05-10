@@ -20,8 +20,8 @@ int main()
     int menu_entry;
     struct Graph *g;
     StrHash hash = Init_StrHash((int)10e5);
-    loading_animation();
-    intro_animation();
+    // loading_animation();
+    // intro_animation();
     do
     {
         main_menu();
@@ -238,30 +238,30 @@ struct Graph *add_map()
 void about_us(){
     system("cls");
     printf("This application was created by:\n\n");
+
     delay(750);
     printf("Hariharan Kalimuthu");
     delay(250);
     printf(" (2020115015)\n\n");
-    delay(750);
+    
     delay(750);
     printf("Naval Surange");
     delay(250);
-    printf(" (202011)\n\n");
-    delay(750);
+    printf(" (202011318)\n\n");
+
     delay(750);
     printf("Priyansh");
     delay(250);
     printf(" (20201)\n\n");
-    delay(750);
+    
     delay(750);
     printf("Rajarshi Ray");
     delay(250);
     printf(" (2020)\n\n");
-    delay(750);
+    
     delay(750);
     printf("Rohan ");
     delay(250);
     printf(" (20201)\n\n");
-    delay(750);
     getch();
 }
