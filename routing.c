@@ -159,6 +159,7 @@ void routing(struct Graph* g,StrHash hash,int dest){
             L1:
             printf("\n\nYou are currently at intersection : %d",me.curr_node);
             printf("\nYou have reached your destination");
+            printf("\n(Press any key to continue)");
             getch();
             break;
         }
