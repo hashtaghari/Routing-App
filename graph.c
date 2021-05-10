@@ -117,13 +117,13 @@ void saveGraph(struct Graph *g, char *name)
 {
     char path[100] = ".\\data\\";
     char c_name[100];
-    char ext[6]=".txt";
+    char ext[6] = ".txt";
 
-    strcpy(c_name,name);
-    strcat(c_name,ext);
+    strcpy(c_name, name);
+    strcat(c_name, ext);
 
     strcat(path, c_name);
-    
+
     FILE *f = fopen(path, "w");
     fprintf(f, "%d %d\n", g->V, g->E);
 
@@ -132,11 +132,76 @@ void saveGraph(struct Graph *g, char *name)
         struct Edge *curr = g->array[i].head;
         while (curr != NULL)
         {
-            fprintf(f,"%d %d %s %d\n", i, curr->dest, curr->name, curr->Length);
+            fprintf(f, "%d %d %s %d\n", i, curr->dest, curr->name, curr->Length);
             curr = curr->next;
         }
     }
     fclose(f);
+}
+
+int updateLength(struct Graph *g, int src, int dest, int newLength)
+{
+    struct Edge *e = g->array[src].head;
+    while (e != NULL)
+    {
+        if (e->dest == dest)
+        {
+            break;
+        }
+        e = e->next;
+    }
+    if (e == NULL)
+    {
+        return -1;
+    }
+    e->Length = newLength;
+}
+
+int updateName(struct Graph *g, int src, int dest, char *newName)
+{
+    struct Edge *e = g->array[src].head;
+    while (e != NULL)
+    {
+        if (e->dest == dest)
+        {
+            break;
+        }
+        e = e->next;
+    }
+    if (e == NULL)
+    {
+        return -1;
+    }
+    strcpy(e->name, newName);
+}
+
+int deleteEdge(struct Graph *g, int src, int dest)
+{
+    struct Edge *e = g->array[src].head, *prev;
+    struct Edge *curr = g->array[src].head;
+    if (e == NULL)
+    {
+        return 0;
+    }
+    if (e->dest == dest)
+    {
+        struct Edge*temp = e;
+        g->array[src].head = e->next;
+        free(temp);
+        return 1;
+    }
+
+    while (e != NULL && e->dest != dest)
+    {
+        prev = e;
+        e = e->next;
+    }
+    if (e == NULL)
+    {
+        return 0;
+    }
+    prev->next = e->next;
+    free(e);
 }
 
 // int main()
