@@ -9,15 +9,15 @@ Hi_edge = Hi_edge_list[0]
 
 Hi_edge = str(Hi_edge)
 
-#print("\n in python name : " + Hi_edge)
-
 
 highleted_color = "orange"
 back_ground = "#59999c"
 edge_color = "black"
 vertex_color = "#f67d7d"
 
-line1 = f.readline()
+line1 = f.readline().split()
+
+
 G = nx.DiGraph()
 formatted_edge_labels_list = []
 
@@ -49,3 +49,5 @@ nx.draw_networkx_edge_labels(G,pos,edge_labels=formatted_edge_labels,font_color=
 
 fig.set_facecolor(back_ground)
 plt.show()
+f.close()
+f2.close()
